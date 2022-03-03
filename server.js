@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();   
+// coloring console output
 const colors = require("colors");
                              
 // import dotenv                       
@@ -51,6 +52,6 @@ const PORT = process.env.PORT || 3000;                     // define the port
 
 // Start the server only after db is connected
 app.listen(3000, () => {                         // listen on port 3000
-    console.log(CONNECTION_STRING);
-    console.log("API_URL: " + api);
+    console.log(CONNECTION_STRING.blue.bold);
+    console.log("API_URL: " + api.yellow);
 }); 
