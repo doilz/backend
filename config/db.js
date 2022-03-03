@@ -1,5 +1,6 @@
 // import mongoose : mongoDB
 const mongooose = require("mongoose"); 
+const color = require("colors");
 
 const connectDB = async () => {
     const conn = await mongooose.connect(process.env.CONNECTION_STRING,{
@@ -7,7 +8,7 @@ const connectDB = async () => {
         useUnifiedTopology: true,                             // connect to mongodb cluster 옵션 설정부분
         dbname: "blocks" 
     }).then(() => {
-        console.log("Connected to DB");
+        console.log("Connected to DB".cyan);
     }).catch(err => {
         console.log(err);
     });
