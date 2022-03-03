@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();   
+const colors = require("colors");
                              
 // import dotenv                       
 const dotenv = require("dotenv");
@@ -12,8 +13,7 @@ const apiV2 = process.env.API_URL_V2;
 // dotenv
 const CONNECTION_STRING = process.env.CONNECTION_STRING;  
 
-// import mongoose : mongoDB
-const mongooose = require("mongoose");                    
+                   
 
 // import the Routes
 const testApi = require("./routes/testApi");           

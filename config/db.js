@@ -1,3 +1,6 @@
+// import mongoose : mongoDB
+const mongooose = require("mongoose"); 
+
 const connectDB = async () => {
     const conn = await mongooose.connect(process.env.CONNECTION_STRING,{
         useNewUrlParser: true,                                // use new url parser : mongoose 5.x 이상에서는 이걸 써줘야 함 
