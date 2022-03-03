@@ -1,0 +1,12 @@
+100~ 인포메이션
+200~ 성공
+201  생성
+204  No CONNECTION_STRING
+300~ Redirection
+304  Not modified
+400~ Client Error
+400  Bad Request
+401  Unauthorized
+404  Not Found
+500~ Server Error
+500  Internal Server Error
