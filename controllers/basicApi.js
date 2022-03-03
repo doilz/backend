@@ -85,7 +85,15 @@ exports.updateBasicApi = async (req, res,next) => {
 // @route       Delete /api/v2/basicApi/:id
 // @access      Private
 exports.deleteBasicApi = (req, res,next) => {
-    res
-        .status(200)
-        .json({ success: true, message: `Delete basicApi ${req.params.id}` });   
+    try {
+        const basicApi = BasicApi.findByIdAndDelete(req.params.id);
+        
+        if(!basicApi) {
+            return res.status(400).json({ success: false, error: `basicApi not found` });
+        }
+        res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        res.status(400).json({ success: false});
+    }
+    
 };
