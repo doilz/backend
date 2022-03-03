@@ -1,12 +1,6 @@
 const express = require("express");
 const app = express();   
-
-// make middleware
-const logger = (req, res, next) => {
-    req.hello = "Hello";
-    console.log('Middleware logger is running');
-    next();  //                                    ! next() is used to move to the next middleware
-}                                 
+                             
 // import dotenv                       
 const dotenv = require("dotenv");
 dotenv.config({ path: './config/.env'});
@@ -33,6 +27,11 @@ const morgan = require("morgan");                         // import morgan : mid
 app.use(morgan("tiny"));                                  // use morgan as middleware
                                                           // tiny : log only errors
 
+const connectDB = require("./config/db");                 // import the connectDB function
+connectDB();                                              // call the connectDB function
+
+const logger = require("./middleware/logger");            // import the logger function
+app.use(logger);                                          // call the logger function
 
 // Routes
 // http://localhost:3000/api/vi/
@@ -47,18 +46,11 @@ const PORT = process.env.PORT || 3000;                     // define the port
 //.env 설정 
 // CONNECTION_STRING = mongodb+srv://pirates:1234@cluster0.pft4y.mongodb.net/blocks?retryWrites=true&w=majority   : 몽고db 연결하는 커맨드
 //                                  username:password                       /dbname                               : 몽고db 설정한 이름 패스워드 db이름
-mongooose.connect(process.env.CONNECTION_STRING,{
-    useNewUrlParser: true,                                // use new url parser : mongoose 5.x 이상에서는 이걸 써줘야 함 
-    useUnifiedTopology: true,                             // connect to mongodb cluster 옵션 설정부분
-    dbname: "blocks" 
-}).then(() => {
-    console.log("Connected to DB");
-}).catch(err => {
-    console.log(err);
-});
+
+
 
 // Start the server only after db is connected
 app.listen(3000, () => {                         // listen on port 3000
     console.log(CONNECTION_STRING);
     console.log("API_URL: " + api);
-});
+}); 
