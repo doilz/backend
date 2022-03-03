@@ -1,3 +1,4 @@
+const BasicApi = require("../models/BasicApi");  // Model 
 // 컨트롤러들을 router로 보내야함
 
 // @desc        Get all basicApi
@@ -14,6 +15,7 @@ exports.getBasicApi = (req, res,next) => {
 // @route       GET /api/v2/basicApi
 // @access      private
 exports.searchBasicApi = (req, res,next) => {
+    console.log(req.body)
     res
         .status(200)
         .json({ success: true, message: `Search single basicApi ${req.params.id}` });
@@ -23,10 +25,24 @@ exports.searchBasicApi = (req, res,next) => {
 // @desc        POST single basicApi
 // @route       POST /api/v2/basicApi
 // @access      private
-exports.createBasicApi = (req, res,next) => {
-    res
-        .status(200)
-        .json({ success: true, message: `Show single basicApi ${req.params.id}` });
+exports.createBasicApi = async (req, res,next) => {
+  try {
+    const basicApi = await BasicApi.create(req.body);
+    res.status(201).json({
+      success: true,
+      data: basicApi
+    });
+  } catch (error) {
+      console.log(error);
+        res.status(400).json({
+            success: false,
+            error: error.message
+        });
+  }
+   
+    // res
+    //     .status(200)
+    //     .json({ success: true, message: `Show single basicApi ${req.params.id}` });
 };
 
 

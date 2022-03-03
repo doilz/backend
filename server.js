@@ -22,8 +22,7 @@ const basicApi = require("./routes/basicApi");
 
 // Middleware
 const bodyParser = require("body-parser");                // import body-parser 리퀘스트 본문을 파싱하는 미들웨어
-app.use(bodyParser.json());                               // calling middleware
-app.use(bodyParser.urlencoded({extended: false}));        // is extended false -> 파싱하지 않음
+app.use(bodyParser.json());                               // calling middleware      // is extended false -> 파싱하지 않음
 const morgan = require("morgan");                         // import morgan : middleware for logging (error, info, etc)
 app.use(morgan("tiny"));                                  // use morgan as middleware
                                                           // tiny : log only errors
@@ -48,10 +47,13 @@ const PORT = process.env.PORT || 3000;                     // define the port
 // CONNECTION_STRING = mongodb+srv://pirates:1234@cluster0.pft4y.mongodb.net/blocks?retryWrites=true&w=majority   : 몽고db 연결하는 커맨드
 //                                  username:password                       /dbname                               : 몽고db 설정한 이름 패스워드 db이름
 
-
-
 // Start the server only after db is connected
-app.listen(3000, () => {                         // listen on port 3000
-    console.log(CONNECTION_STRING.blue.bold);
-    console.log("API_URL: " + api.yellow);
-}); 
+const server = app.listen(
+    PORT,
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
+    );
+
+process.on('unhandledRejection', (err, promise) => {
+    console.log(`Error: ${err.message}`.red);
+    server.close(() => process.exit(1));
+})

@@ -1,0 +1,22 @@
+[
+    {
+        "_id": "5d2ca9e2e03d40b326596aa7",
+        "user": "5d2ca8822e03d40b3a16d649",
+        "name": "The first task",
+        "description": "This is the first task",
+        "website": "https://google.com",
+        "phone": "0123456789",
+        "email": "enroll@gmail.com",
+        "address": "Baker Street 221B",
+        "location": {
+            "lat": 51.75,
+            "lng": -1.25
+        },
+        "career": "Software Engineer",
+        "housing": true,
+        "jobAssistance": true,
+        "jobGuarantee": false,
+        "acceptGi": true,
+        "hello": "World"
+    }
+]
