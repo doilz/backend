@@ -4,24 +4,46 @@ const BasicApi = require("../models/BasicApi");  // Model
 // @desc        Get all basicApi
 // @route       GET /api/v2/basicApi
 // @access      Public
-exports.getBasicApi = (req, res, next) => {       
-    res
-        .status(200)                        
-        .json({ success: true, message: "Show all Basic API", hello: req.hello });
+exports.getBasicApi = async (req, res, next) => {       
+    try{
+        const basicApi = await BasicApi.find();
+        res.status(200).json({ success: true, data: basicApi });
+
+    } catch {
+        res.status(400).json({ success: false, error: error.message });
+    } 
 };
 
-
 // @desc        Get all basicApi
-// @route       GET /api/v2/basicApi
+// @route       GET /api/v2/basicApi/:id
+// @access      Public
+exports.getBasicApis = async (req, res, next) => {       
+    try{
+        const basicApi = await BasicApi.find(req.params.id);
+        res.status(200).json({ success: true, data: basicApi });
+
+    } catch {
+        res.status(400).json({ success: false, error: error.message });
+    } 
+};
+
+// @desc        Get all single basicApi
+// @route       GET /api/v2/basicApi/:id
 // @access      private
-exports.searchBasicApi = (req, res,next) => {  
-    console.log(req.body)   
-    res
-        .status(200)
-        .json({ success: true, message: `Search single basicApi ${req.params.id}` }); // req.params.id is the id of the basicApi
+exports.searchBasicApi = async (req, res, next) => {  
+    try{
+        const basicApi = await BasicApi.find(req.params.id);
+        if(!basicApi) {
+            return res.status(400).json({ success: false, error: `basicApi not found` });
+        }
+       
+        res.status(200).json({ success: true, data: basicApi });
+    } catch {
+        res.status(400).json({ success: false, error: error.message });
+    } 
  };
 
-// @desc        POST single basicApi
+// @desc        Create
 // @route       POST /api/v2/basicApi
 // @access      private
 exports.createBasicApi = async (req, res, next) => {                                   // async : 함수를 비동기 방식으로 실행하는 것
@@ -44,7 +66,6 @@ exports.createBasicApi = async (req, res, next) => {                            
     //     .json({ success: true, message: `Show single basicApi ${req.params.id}` });
 };
 
-
 // @desc        Generate ...
 // @route       PUT /api/v2/basicApi/:id
 // @access      Private
@@ -53,7 +74,6 @@ exports.updateBasicApi = (req, res,next) => {
         .status(200)
         .json({ success: true, message: `Generate new basicApi ${req.params.id}` });
 };
-
 
 // @desc        Delete 
 // @route       Delete /api/v2/basicApi/:id
