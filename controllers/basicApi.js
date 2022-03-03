@@ -69,10 +69,16 @@ exports.createBasicApi = async (req, res, next) => {                            
 // @desc        Generate ...
 // @route       PUT /api/v2/basicApi/:id
 // @access      Private
-exports.updateBasicApi = (req, res,next) => {
-    res
-        .status(200)
-        .json({ success: true, message: `Generate new basicApi ${req.params.id}` });
+exports.updateBasicApi = async (req, res,next) => {
+  const basicApi = await BasicApi.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true  
+    });
+
+    if(!basicApi) {
+        return res.status(400).json({ success: false, error: `basicApi not found` });
+    }
+    res.status(200).json({ success: true, data: basicApi });
 };
 
 // @desc        Delete 
