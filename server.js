@@ -5,33 +5,24 @@ const colors = require("colors");
                              
 // import dotenv                       
 const dotenv = require("dotenv");
-dotenv.config({ path: './config/.env'});
+dotenv.config({ path: './config/.env'}); 
+const CONNECTION_STRING = process.env.CONNECTION_STRING;  
 
 // load the environment variables
 const api = process.env.API_URL;
 const apiV2 = process.env.API_URL_V2;
-
-// dotenv
-const CONNECTION_STRING = process.env.CONNECTION_STRING;  
-
-                   
 
 // import the Routes
 const testApi = require("./routes/testApi");           
 const basicApi = require("./routes/basicApi");   
 
 // Middleware
-const bodyParser = require("body-parser");                // import body-parser 리퀘스트 본문을 파싱하는 미들웨어
-app.use(bodyParser.json());                               // calling middleware      // is extended false -> 파싱하지 않음
+const logger = require("./middleware/logger");            // import the logger function
+app.use(logger);                                          // call the logger function
+app.use(express.json());                                  // use the json middleware
 const morgan = require("morgan");                         // import morgan : middleware for logging (error, info, etc)
 app.use(morgan("tiny"));                                  // use morgan as middleware
                                                           // tiny : log only errors
-
-const connectDB = require("./config/db");                 // import the connectDB function
-connectDB();                                              // call the connectDB function
-
-const logger = require("./middleware/logger");            // import the logger function
-app.use(logger);                                          // call the logger function
 
 // Routes
 // http://localhost:3000/api/vi/
@@ -41,6 +32,10 @@ app.use(`${apiV2}/basicApi`, basicApi);                           // use basicAp
 // Port
 const PORT = process.env.PORT || 3000;                     // define the port
 
+
+// Connect to the database
+const connectDB = require("./config/db");                 // import the connectDB function
+connectDB();                                              // call the connectDB function
 
 // Connect to MongoDB -> DB연결이 서버 생성보다 우선 newtwork access 해줘야함 mongo atlas 에서 연결 커맨드 제공해줌
 //.env 설정 
