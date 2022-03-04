@@ -1,5 +1,9 @@
 const express = require("express");
-const app = express();   
+const app = express();  
+
+// Request 
+const request = require("request");
+
 // coloring console output
 const colors = require("colors");
                              
@@ -31,6 +35,7 @@ app.use(`${api}/testApi`, testApi);                        // use testapi.js as 
 app.use(`${apiV2}/basicApi`, basicApi);                    // use basicApi.js as middleware
 app.use(errorHandler);                                     // use errorHandler as middleware
 
+
 // Port
 const PORT = process.env.PORT || 3000;                     // define the port
 
@@ -53,3 +58,5 @@ process.on('unhandledRejection', (err, promise) => {
     console.log(`Error: ${err.message}`.red);
     server.close(() => process.exit(1));
 })
+
+// Rpc
