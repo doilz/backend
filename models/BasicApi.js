@@ -2,7 +2,7 @@
 const slugify = require('slugify');
 const { default: mongoose } = require("mongoose");
 
-const BasicApiSchema = new mongoose.Schema({  // 스키마 설정 = 어떤 형태의 데이터를 저장할 것인지 정의.
+const BasicApiSchema = new mongoose.Schema({                        // 스키마 설정 = 어떤 형태의 데이터를 저장할 것인지 정의.
     name: {                                   
         type: String,
         required: [true, "Name is required"],                       // required 옵션을 사용하면 해당 필드가 입력되지 않았을 경우 에러를 발생시킴

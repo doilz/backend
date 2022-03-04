@@ -11,7 +11,6 @@ router.get( '/products', (req, res) => {                // define the route
         product)
 });
 
-
 router.post('/products', (req, res) => {               // define the route
     const newProduct = req.body;
     console.log(newProduct);                        // get the body of the request

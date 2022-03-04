@@ -34,7 +34,6 @@ app.use(errorHandler);                                     // use errorHandler a
 // Port
 const PORT = process.env.PORT || 3000;                     // define the port
 
-
 // Connect to the database
 const connectDB = require("./config/db");                  // import the connectDB function
 connectDB();                                               // call the connectDB function
