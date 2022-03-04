@@ -16,7 +16,8 @@ const apiV2 = process.env.API_URL_V2;
 const testApi = require("./routes/testApi");           
 const basicApi = require("./routes/basicApi");   
 
-// Middleware
+// Middleware 
+const errorHandler = require("./middleware/error");       // error handler
 const logger = require("./middleware/logger");            // import the logger function
 app.use(logger);                                          // call the logger function
 app.use(express.json());                                  // use the json middleware
@@ -26,16 +27,17 @@ app.use(morgan("tiny"));                                  // use morgan as middl
 
 // Routes
 // http://localhost:3000/api/vi/
-app.use(`${api}/testApi`, testApi);                            // use testapi.js as middleware
-app.use(`${apiV2}/basicApi`, basicApi);                           // use basicApi.js as middleware
+app.use(`${api}/testApi`, testApi);                        // use testapi.js as middleware
+app.use(`${apiV2}/basicApi`, basicApi);                    // use basicApi.js as middleware
+app.use(errorHandler);                                     // use errorHandler as middleware
 
 // Port
 const PORT = process.env.PORT || 3000;                     // define the port
 
 
 // Connect to the database
-const connectDB = require("./config/db");                 // import the connectDB function
-connectDB();                                              // call the connectDB function
+const connectDB = require("./config/db");                  // import the connectDB function
+connectDB();                                               // call the connectDB function
 
 // Connect to MongoDB -> DB연결이 서버 생성보다 우선 newtwork access 해줘야함 mongo atlas 에서 연결 커맨드 제공해줌
 //.env 설정 

@@ -11,12 +11,12 @@ const router = express.Router();
 
 router
     .route('/')
-    .get(getBasicApis)
+    .get(getBasicApi)
     .post(createBasicApi)
 
 router
     .route('/:id')
-    .get(getBasicApi)
+    .get(getBasicApis)
     .put(updateBasicApi)
     .delete(deleteBasicApi)
 

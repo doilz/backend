@@ -1,5 +1,5 @@
 
-
+const slugify = require('slugify');
 const { default: mongoose } = require("mongoose");
 
 const BasicApiSchema = new mongoose.Schema({  // 스키마 설정 = 어떤 형태의 데이터를 저장할 것인지 정의.
@@ -95,6 +95,13 @@ const BasicApiSchema = new mongoose.Schema({  // 스키마 설정 = 어떤 형�
         type: Date,                                                         // Date 옵션을 사용하면 해당 필드에서 입력된 값이 정의된 형식에 맞지 않을 경우 에러를 발생시킴
         default: Date.now                                                   // default 옵션을 사용하면 해당 필드에서 입력된 값이 없을 경우 정의된 값을 대입해줌    
     }
+});
+
+// Mongoose Middleware - Pre
+BasicApiSchema.pre("save", function(next) {
+    this.slug = slugify(this.name, { lower: true });  // lower 옵션을 사용하면 slugify 함수에서 입력된 값을 소문자로 변환해줌
+    console.log('Slugify ran' + this.name);
+    next();
 });
 
 module.exports = mongoose.model('BasicApi', BasicApiSchema);                // BasicApi 스키마를 모델로 변환하여 exports 함수를 통해서 사용할 수 있도록 함
