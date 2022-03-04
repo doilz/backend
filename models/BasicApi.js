@@ -98,27 +98,27 @@ const BasicApiSchema = new mongoose.Schema({  // 스키마 설정 = 어떤 형�
 });
 
 // Mongoose Middleware - Pre
-BasicApiSchema.pre("save", function(next) {
-    this.slug = slugify(this.name, { lower: true });  // lower 옵션을 사용하면 slugify 함수에서 입력된 값을 소문자로 변환해줌
-    console.log('Slugify ran' + this.name);
-    next();
-});
+// BasicApiSchema.pre("save", async function(next) {
+//     this.slug = await slugify(this.name, { lower: true });  // lower 옵션을 사용하면 slugify 함수에서 입력된 값을 소문자로 변환해줌
+//     console.log('Slugify ran' + this.name);
+//     next();
+// });
 
-BasicApiSchema.pre("save", function(next) {
-    const loc = await geocoder.geocode(this.address);
-    this.location = {
-        type: "Point",
-        coordinates: [loc[0].longitude, loc[0].latitude],
-        formattedAddress: loc[0].formattedAddress,
-        street: loc[0].streetName,
-        city: loc[0].city,
-        state: loc[0].stateCode,
-        zipcode: loc[0].zipcode,
-        country: loc[0].countryCode
-    };
-    this.address = undefined;
-    next();
-});
+// BasicApiSchema.pre("save", async function(next) {
+//     const loc = await geocoder.geocode(this.address);
+//     this.location = {
+//         type: "Point",
+//         coordinates: [loc[0].longitude, loc[0].latitude],
+//         formattedAddress: loc[0].formattedAddress,
+//         street: loc[0].streetName,
+//         city: loc[0].city,
+//         state: loc[0].stateCode,
+//         zipcode: loc[0].zipcode,
+//         country: loc[0].countryCode
+//     };
+//     this.address = undefined;
+//     next();
+// });
 
 
 module.exports = mongoose.model('BasicApi', BasicApiSchema);                // BasicApi 스키마를 모델로 변환하여 exports 함수를 통해서 사용할 수 있도록 함
