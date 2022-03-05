@@ -16,10 +16,6 @@ emitter.on('start', (arg) => {
     console.log("logging", arg);
 });
 
-const log = require("./testloggin");
-log("Hello World");
-
-
 // const server = http.createServer((req, res) => {
 
 //     // getblock
