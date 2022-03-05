@@ -7,5 +7,6 @@ router
     .use('/',)
     .get(getBlockHash)
     .get(getBlock)
+    .get(address)
 
 

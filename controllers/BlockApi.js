@@ -8,61 +8,80 @@ dotenv.config({ path: './config/.env'});
 const USER = process.env.USER;
 const PASSWORD = process.env.PASSWORD;
 
+
 exports.getBlockHash = asyncHandler(async (req, res, next) => {
-    var blockHash = req.params.blockHash;
-    console.log(`req.params.blockHash : ${blockHash}`);
-    var dataString = `"jsonrpc":"2.0","method":"getblockhash","params":[${req.params.blockNumber}]`;
-    console.log(`dataString : ${dataString}`);
-    var option = {
-        url: `http://${USER}:${PASSWORD}@127.0.0.1:${RPC_PORT}`,
+    var blockIndex = req.params.blockIndex;
+    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getblockhash/" + blockIndex;
+    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [${blockIndex}]`;
+    var options = {
+        url: url,
         method: "GET",
         headers: {
-            "content-type": "text/plain;"
-        },
-        body: dataString
-    };
-
-    callback = await function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.status(200).json({
-                success: true,
-                data: JSON.parse(body)
-            });
-        } else {
-            res.status(400).json({
-                success: false,
-                error: error
-            });
+            "Content-Type": "text/plain",
+            "Content-Length": dataString.length
         }
-    }
-    request(option, callback);
+    };
+    const callback = (error, response, body) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(body);
+        res.status(200).json({
+            success: true,
+            data: JSON.parse(body)
+        });
+    };
+    request(options, callback);
 });
 
 exports.getBlock = asyncHandler(async (req, res, next) => {
-    var block = req.params.block;
-    console.log(`req.params.block : ${block}`);
-    var dataString = `"jsonrpc":"2.0","method":"getblock","params":[${block}]`;
-    console.log(`dataString : ${dataString}`);
-    var option = {
-        url: `http://${USER}:${PASSWORD}@127.0.0.1:${RPC_PORT}`,
+    var blockHash = req.params.blockHash;
+    console.log(`req.params.block : ${blockHash}`);
+    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getblock/" + blockHash;
+    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getblock", "params": [${blockHash}]`;
+    var options = {
+        url: url,
         method: "GET",
         headers: {
-            "content-type": "text/plain;"
-        },
-        body: dataString
-    };
-    callback = await function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.status(200).json({
-                success: true,
-                data: JSON.parse(body)
-            });
-        } else {
-            res.status(400).json({
-                success: false,
-                error: error
-            });
+            "Content-Type": "text/plain",
+            "Content-Length": dataString.length
         }
-    }
-    request(option, callback);
+    };
+    const callback = (error, response, body) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(body);
+        res.status(200).json({
+            success: true,
+            data: JSON.parse(body)
+        });
+    };
+    request(options, callback);
 });
+
+exports.getAddressBalance = asyncHandler(async (req, res, next) => {
+    var address = req.params.address;
+    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getaddressbalance/" + address;
+    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [${address}]`;
+    var options = {
+        url: url,
+        method: "GET",
+        headers: {
+            "Content-Type": "text/plain",
+            "Content-Length": dataString.length
+        }
+    };
+    const callback = (error, response, body) => {
+        if (error) {
+            console.log(error);
+        }
+        console.log(body);
+        res.status(200).json({
+            success: true,
+            data: JSON.parse(body)
+        });
+    };
+    request(options, callback);
+});
+

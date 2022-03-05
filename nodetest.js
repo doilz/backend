@@ -1,5 +1,5 @@
-// const http = require("http");
-// const fs = require("fs");
+const http = require("http");
+const fs = require("fs");
 const EventEmitter = require("events"); // 이벤트 모듈 사용
 const emitter = new EventEmitter();     // 이벤트 모듈 생성 
 
@@ -40,7 +40,7 @@ log("Hello World");
 // let count = 0;
 // let data = fs.readFileSync("./_data/blocks.json", "utf-8");
 
-
+// const count = 0;
 // const time = setInterval(() => {
 //     console.log("Hello World");
 
