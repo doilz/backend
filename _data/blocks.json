@@ -1,7 +1,6 @@
 [
     {
-       
-        "hash": "8f310888ad2ba2098f151359284c97967a68b3ad1ad9f7e09e026d8c8a8948ee",
+    "hash": "8f310888ad2ba2098f151359284c97967a68b3ad1ad9f7e09e026d8c8a8948ee",
     "confirmations": 4136,
     "strippedsize": 216,
     "size": 216,
@@ -23,7 +22,6 @@
     "nextblockhash": "7597447628b90a1c04bd749b205fc4fc84a58b17e5f68f927a0404648d9eb560"
     },
     {
-
     "hash": "7597447628b90a1c04bd749b205fc4fc84a58b17e5f68f927a0404648d9eb560",
     "confirmations": 4135,
     "strippedsize": 216,
@@ -69,7 +67,6 @@
     "nextblockhash": "de0bc9e62461efb7cb25b3dfadef8e3b9d032872b04d99bf121793691774161d"
     },
     {
-  
     "hash": "de0bc9e62461efb7cb25b3dfadef8e3b9d032872b04d99bf121793691774161d",
     "confirmations": 4133,
     "strippedsize": 216,
