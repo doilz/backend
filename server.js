@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();  
-
 // Request 
 const request = require("request");
 
@@ -10,15 +9,18 @@ const colors = require("colors");
 // import dotenv                       
 const dotenv = require("dotenv");
 dotenv.config({ path: './config/.env'}); 
-const CONNECTION_STRING = process.env.CONNECTION_STRING;  
 
 // load the environment variables
 const api = process.env.API_URL;
 const apiV2 = process.env.API_URL_V2;
 
+// blockchain api
+const apiV3 = process.env.API_URL_V3;
+
 // import the Routes
 const testApi = require("./routes/testApi");           
-const basicApi = require("./routes/basicApi");   
+const basicApi = require("./routes/basicApi"); 
+const BlockApi = require("./routes/BlockApi");  
 
 // Middleware 
 const errorHandler = require("./middleware/error");       // error handler
@@ -33,6 +35,10 @@ app.use(morgan("tiny"));                                  // use morgan as middl
 // http://localhost:3000/api/vi/
 app.use(`${api}/testApi`, testApi);                        // use testapi.js as middleware
 app.use(`${apiV2}/basicApi`, basicApi);                    // use basicApi.js as middleware
+
+// !important : use the apiV3 as middleware
+app.use(`${apiV3}/block`, BlockApi);                       
+
 app.use(errorHandler);                                     // use errorHandler as middleware
 
 
@@ -60,3 +66,4 @@ process.on('unhandledRejection', (err, promise) => {
 })
 
 // Rpc
+
