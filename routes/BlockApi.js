@@ -4,9 +4,19 @@ const { getBlock, getBlockHash } = require("../controllers/BlockApi");
 
 // @route GET BlockApi 
 router
-    .use('/',)
+    .route('/',)
+    // .get(getBlockHash)
+    // .get(getBlock)
+    // .get(address)
+router
+    .route('/getBlockHash/:blockIndex')
     .get(getBlockHash)
-    .get(getBlock)
-    .get(address)
 
+router
+    .route('/getBlock/:blockHash')
+    .get(getBlock)
+router
+    .route('/getAddressBalance/:address')
+    .get(address)
+    
 

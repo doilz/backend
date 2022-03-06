@@ -1,87 +1,57 @@
 const asyncHandler = require("../middleware/async");
 const request = require("request");
-
 const ErrorResponse = require('../utils/errorResponse');
 const dotenv = require("dotenv");
 dotenv.config({ path: './config/.env'}); 
-
 const USER = process.env.USER;
 const PASSWORD = process.env.PASSWORD;
-
-
-exports.getBlockHash = asyncHandler(async (req, res, next) => {
-    var blockIndex = req.params.blockIndex;
-    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getblockhash/" + blockIndex;
-    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [${blockIndex}]`;
-    var options = {
-        url: url,
-        method: "GET",
-        headers: {
-            "Content-Type": "text/plain",
-            "Content-Length": dataString.length
-        }
-    };
-    const callback = (error, response, body) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log(body);
-        res.status(200).json({
-            success: true,
-            data: JSON.parse(body)
-        });
-    };
-    request(options, callback);
-});
+const LOCALHOST = process.env.LOCAL_RPC;
+const PORT = process.env.PORT;
+const headers = {
+    'Content-Type': 'text/plain',
+};
 
 exports.getBlock = asyncHandler(async (req, res, next) => {
-    var blockHash = req.params.blockHash;
-    console.log(`req.params.block : ${blockHash}`);
-    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getblock/" + blockHash;
-    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getblock", "params": [${blockHash}]`;
+    const blockHash = req.params.hash;
+    console.log(blockHash.red.bold);
+    var dataString = '{"jsonrpc":"1.0","id":"kbpark","method":"getblock","params":["' + req.params.hash + '"]}';
+    var url = `http://${USER}:${PASSWORD}@${LOCALHOST}:${PORT}/`;
     var options = {
         url: url,
-        method: "GET",
-        headers: {
-            "Content-Type": "text/plain",
-            "Content-Length": dataString.length
-        }
+        method: 'POST',
+        headers: headers
+            
     };
-    const callback = (error, response, body) => {
-        if (error) {
-            console.log(error);
+
+    callback = function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log("body:" + body);
+            const data = JSON.parse(body);
+            console.log("data" + data);
+            res.status(200).json({ success: true, data: body });
         }
-        console.log(body);
-        res.status(200).json({
-            success: true,
-            data: JSON.parse(body)
-        });
-    };
-    request(options, callback);
+    }
+    request (options, callback);
 });
 
-exports.getAddressBalance = asyncHandler(async (req, res, next) => {
-    var address = req.params.address;
-    var url = "http://" + USER + ":" + PASSWORD + "@" + "127.0.0.1/getaddressbalance/" + address;
-    var dataString = `"jsonrpc": "1.0", "id":"curltest", "method": "getaddressbalance", "params": [${address}]`;
+exports.getBlockHash = asyncHandler(async (req, res, next) => {
+    const blockIndex = req.params.index;
+    console.log("Searching block index : " + blockIndex.red.bold);
+    var dataString = '{"jsonrpc":"1.0","id":"kbpark","method":"getblockhash","params":["' + req.params.index + '"]}';
+    var url = `http://${USER}:${PASSWORD}@${LOCALHOST}:${PORT}/`;
     var options = {
         url: url,
-        method: "GET",
-        headers: {
-            "Content-Type": "text/plain",
-            "Content-Length": dataString.length
-        }
+        method: 'POST',
+        headers: headers
+         
     };
-    const callback = (error, response, body) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log(body);
-        res.status(200).json({
-            success: true,
-            data: JSON.parse(body)
-        });
-    };
-    request(options, callback);
-});
 
+    callback = function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
+            const data = JSON.parse(body);
+            res.status(200).json({ success: true, data: body });
+        }
+    }
+    request (options, callback);
+}); 

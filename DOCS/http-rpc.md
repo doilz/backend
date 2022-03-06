@@ -12,8 +12,11 @@ Request http
 
 Response http
 -1 Start line : STATUS CODE -> 100, 200, 300, 400, 500
+
 -2 Headers    : Cookies -> 
+
 -3 Blank line : 헤더와 바디 구분지점
+
 -4 Body       : HTML
 
 
