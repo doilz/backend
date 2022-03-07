@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();  
+
 // Request 
 const request = require("request");
 
@@ -41,13 +42,13 @@ app.use(`${apiV3}/block`, BlockApi);
 
 app.use(errorHandler);                                     // use errorHandler as middleware
 
-
 // Port
 const PORT = process.env.PORT || 3000;                     // define the port
 
 // Connect to the database
 const connectDB = require("./config/db");                  // import the connectDB function
 connectDB();                                               // call the connectDB function
+const { db } = require("./models/BasicApi");               // import the db variable
 
 // Connect to MongoDB -> DB연결이 서버 생성보다 우선 newtwork access 해줘야함 mongo atlas 에서 연결 커맨드 제공해줌
 //.env 설정 

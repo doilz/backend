@@ -20,7 +20,6 @@ exports.getBlock = asyncHandler(async (req, res, next) => {
         url: url,
         method: 'POST',
         headers: headers
-            
     };
 
     callback = function (error, response, body) {
@@ -43,7 +42,6 @@ exports.getBlockHash = asyncHandler(async (req, res, next) => {
         url: url,
         method: 'POST',
         headers: headers
-         
     };
 
     callback = function (error, response, body) {
