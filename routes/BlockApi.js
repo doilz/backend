@@ -18,5 +18,8 @@ router
 router
     .route('/getAddressBalance/:address')
     .get(address)
+
     
+    
+exports.router = router;
 
